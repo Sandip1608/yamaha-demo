@@ -1,0 +1,116 @@
+{
+  "user": {
+    "id": "usr_001",
+    "alias": "GorkhaliRider",
+    "avatarUrl": null,
+    "cityHub": "Kathmandu",
+    "totalRides": 156,
+    "totalDistance": 4832.5,
+    "currentRank": 4
+  },
+  "weather": {
+    "temperature": 24.0,
+    "condition": "partlyCloudy",
+    "aqi": 68,
+    "aqiLevel": "moderate",
+    "location": "Kathmandu"
+  },
+  "weeklyStats": {
+    "totalDistance": 124.0,
+    "totalRides": 8,
+    "totalTimeMinutes": 840,
+    "avgSpeed": 42.0,
+    "distanceChangePercent": 12.5,
+    "ridesChangePercent": 8.0,
+    "timeChangePercent": 15.2,
+    "speedChangePercent": -2.1
+  },
+  "activeChallenges": [
+    {
+      "id": "ch_1",
+      "name": "Himalayan 500",
+      "description": "Ride 500 km this month across Nepal's hill roads.",
+      "imageUrl": "assets/images/event_charity.jpg",
+      "difficulty": "hard",
+      "status": "active",
+      "targetValue": 500,
+      "currentValue": 320,
+      "unit": "km",
+      "rewardPoints": 1500,
+      "expiresInDays": 20
+    },
+    {
+      "id": "ch_2",
+      "name": "Chandragiri Climber",
+      "description": "Climb 5,000 m of elevation on Valley rim roads.",
+      "imageUrl": "assets/images/event_sunrise_nagarkot.jpg",
+      "difficulty": "medium",
+      "status": "active",
+      "targetValue": 5000,
+      "currentValue": 2800,
+      "unit": "m",
+      "rewardPoints": 800,
+      "expiresInDays": 15
+    },
+    {
+      "id": "ch_3",
+      "name": "Everyday Rider",
+      "description": "Ride on 15 different days this month.",
+      "imageUrl": "assets/images/event_monsoon.jpg",
+      "difficulty": "easy",
+      "status": "active",
+      "targetValue": 15,
+      "currentValue": 0,
+      "unit": "days",
+      "rewardPoints": 500,
+      "expiresInDays": 22
+    }
+  ],
+  "leaderboardPreview": [
+    {
+      "oderId": "usr_042",
+      "alias": "HimalHawk",
+      "avatarUrl": null,
+      "rank": 1,
+      "points": 12450,
+      "totalDistance": 482.0,
+      "rankDelta": 0
+    },
+    {
+      "oderId": "usr_017",
+      "alias": "ThamelThunder",
+      "avatarUrl": null,
+      "rank": 2,
+      "points": 11820,
+      "totalDistance": 456.0,
+      "rankDelta": 2
+    },
+    {
+      "oderId": "usr_089",
+      "alias": "PatanPhantom",
+      "avatarUrl": null,
+      "rank": 3,
+      "points": 10950,
+      "totalDistance": 421.0,
+      "rankDelta": -1
+    }
+  ],
+  "upcomingEvent": {
+    "id": "evt_1",
+    "name": "SATURDAY RUN",
+    "subtitle": "NAGARKOT SUNRISE",
+    "description": "The weekly Saturday classic — roll out from Bhrikutimandap at 5 AM, climb through Bhaktapur to Nagarkot View Tower for sunrise over the Himalayas.",
+    "heroImageUrl": "assets/images/event_sunrise_nagarkot.jpg",
+    "type": "meetup",
+    "durationHours": 5,
+    "venue": "BHRIKUTIMANDAP",
+    "city": "Kathmandu",
+    "latitude": 27.7008,
+    "longitude": 85.3155,
+    "participantCount": 156,
+    "maxParticipants": 250,
+    "isRegistered": false,
+    "weekday": 6,
+    "startHour": 5
+  }
+}

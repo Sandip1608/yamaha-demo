@@ -1,0 +1,45 @@
+{
+  "startLocation": {
+    "latitude": 27.7172,
+    "longitude": 85.3240,
+    "label": "Kathmandu"
+  },
+  "achievements": [
+    {
+      "id": "ach_10km",
+      "name": "10K Club",
+      "description": "Completed a 10+ km ride.",
+      "iconName": "trophy",
+      "pointsEarned": 50,
+      "unlockRule": "distance>=10"
+    },
+    {
+      "id": "ach_speed_demon",
+      "name": "Speed Demon",
+      "description": "Reached 80+ km/h.",
+      "iconName": "zap",
+      "pointsEarned": 30,
+      "unlockRule": "maxSpeed>=80"
+    },
+    {
+      "id": "ach_endurance",
+      "name": "Endurance Rider",
+      "description": "Rode for 30+ minutes.",
+      "iconName": "clock",
+      "pointsEarned": 40,
+      "unlockRule": "durationSeconds>=1800"
+    }
+  ],
+  "history": [
+    { "id": "ride_h_0", "daysAgo": 1, "distanceKm": 22.4, "avgSpeed": 38.2, "maxSpeed": 74.1, "elevation": 212.0, "elevationGain": 85.2 },
+    { "id": "ride_h_1", "daysAgo": 2, "distanceKm": 14.8, "avgSpeed": 35.0, "maxSpeed": 68.0, "elevation": 180.0, "elevationGain": 42.5 },
+    { "id": "ride_h_2", "daysAgo": 3, "distanceKm": 31.2, "avgSpeed": 41.8, "maxSpeed": 82.3, "elevation": 245.0, "elevationGain": 112.0 },
+    { "id": "ride_h_3", "daysAgo": 4, "distanceKm": 9.4,  "avgSpeed": 28.1, "maxSpeed": 52.0, "elevation": 160.0, "elevationGain": 18.0 },
+    { "id": "ride_h_4", "daysAgo": 6, "distanceKm": 18.7, "avgSpeed": 36.4, "maxSpeed": 71.2, "elevation": 198.0, "elevationGain": 63.0 },
+    { "id": "ride_h_5", "daysAgo": 8, "distanceKm": 27.3, "avgSpeed": 43.0, "maxSpeed": 88.5, "elevation": 230.0, "elevationGain": 98.2 },
+    { "id": "ride_h_6", "daysAgo": 10, "distanceKm": 12.1, "avgSpeed": 32.6, "maxSpeed": 60.0, "elevation": 175.0, "elevationGain": 30.0 },
+    { "id": "ride_h_7", "daysAgo": 12, "distanceKm": 20.0, "avgSpeed": 38.8, "maxSpeed": 76.4, "elevation": 205.0, "elevationGain": 70.0 },
+    { "id": "ride_h_8", "daysAgo": 14, "distanceKm": 8.2,  "avgSpeed": 26.5, "maxSpeed": 48.0, "elevation": 155.0, "elevationGain": 12.0 },
+    { "id": "ride_h_9", "daysAgo": 17, "distanceKm": 24.5, "avgSpeed": 40.1, "maxSpeed": 79.0, "elevation": 220.0, "elevationGain": 88.0 }
+  ]
+}

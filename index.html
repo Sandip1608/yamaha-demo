@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/yamaha-demo/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Yamaha — social telemetry app for urban motorcyclists.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1A1A2E">
+  <meta name="color-scheme" content="dark">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- "black", not "black-translucent": drawing under the status bar
+       triggers a WebKit bug in home-screen apps where the page's layout and
+       touch coordinates disagree with what is drawn, so buttons miss taps. -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Yamaha">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Yamaha</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Paint everything Flutter doesn't (safe-area insets, toolbar resize,
+       pre-boot) in the app background so no white strip shows. */
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #1A1A2E;
+      overscroll-behavior: none;
+      overflow: hidden;
+    }
+    /* Measures env(safe-area-inset-*) for the app (see script below). */
+    #rmc-safe-area-probe {
+      position: fixed; top: 0; left: 0;
+      visibility: hidden; pointer-events: none;
+      padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+               env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+    }
+    /* Top of the screen, clear of the app's bottom navigation bar. */
+    #rmc-install-banner {
+      position: fixed;
+      left: 12px; right: 12px;
+      top: calc(12px + env(safe-area-inset-top));
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #1A1A2E;
+      border: 1px solid #2A2A3E;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.5);
+      font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    #rmc-install-banner img { width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0; }
+    #rmc-install-banner .rmc-text { flex: 1; }
+    #rmc-install-banner .rmc-title { font-weight: 700; }
+    #rmc-install-banner .rmc-sub { color: #8E8E9A; font-size: 12px; }
+    /* Laptops get the centred phone frame; no install nag there. */
+    @media (min-width: 700px) {
+      #rmc-install-banner { display: none !important; }
+    }
+    #rmc-install-btn {
+      background: #2E5BFF; color: #fff; border: none;
+      padding: 10px 16px; border-radius: 12px;
+      font-weight: 700; font-size: 14px; cursor: pointer;
+      flex-shrink: 0;
+    }
+    #rmc-install-close {
+      background: none; border: none; color: #8E8E9A;
+      font-size: 18px; cursor: pointer; padding: 4px; flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="rmc-safe-area-probe"></div>
+  <script>
+    // Flutter web reports no safe areas. Publish them (notch, status bar,
+    // home indicator) for the app to apply to MediaQuery, so it can fill
+    // the screen from the home screen yet keep buttons clear of the
+    // system areas. See lib/core/utils/safe_area_insets.dart.
+    (function () {
+      var probe = document.getElementById('rmc-safe-area-probe');
+      var standalone = window.navigator.standalone === true ||
+        window.matchMedia('(display-mode: standalone)').matches;
+      function measure() {
+        var cs = getComputedStyle(probe);
+        var next = {
+          top: parseFloat(cs.paddingTop) || 0,
+          right: parseFloat(cs.paddingRight) || 0,
+          bottom: parseFloat(cs.paddingBottom) || 0,
+          left: parseFloat(cs.paddingLeft) || 0
+        };
+        // iOS home-screen apps can report the bottom inset as 0 (or only
+        // late). Every iPhone with a notch or Dynamic Island (screen 812pt
+        // or taller, or a top inset >= 44) has a 34pt home indicator in
+        // portrait, so fill it in rather than put buttons on the gesture
+        // strip.
+        var portrait = window.innerHeight > window.innerWidth;
+        var homeIndicator = /iPhone/.test(navigator.userAgent) &&
+          Math.max(screen.width, screen.height) >= 812;
+        window.rmcHomeIndicator = homeIndicator;
+        if (standalone && portrait && (next.top >= 44 || homeIndicator) &&
+            next.bottom === 0) {
+          next.bottom = 34;
+        }
+        var prev = window.rmcSafeArea;
+        window.rmcSafeArea = next;
+        window.rmcStandalone = standalone;
+        // In a home-screen app the visible area is the whole screen.
+        window.rmcScreenHeight = portrait ? Math.max(screen.width, screen.height)
+          : Math.min(screen.width, screen.height);
+        // Raw numbers for the in-app diagnostics (long-press the onboarding
+        // page dots).
+        var vv = window.visualViewport;
+        window.rmcDiag = 'env T' + cs.paddingTop + ' B' + cs.paddingBottom +
+          ' · inner ' + window.innerWidth + 'x' + window.innerHeight +
+          ' · vv ' + (vv ? Math.round(vv.width) + 'x' + Math.round(vv.height) +
+            ' @' + Math.round(vv.offsetTop) : '-') +
+          ' · screen ' + screen.width + 'x' + screen.height +
+          ' · client ' + document.documentElement.clientHeight +
+          ' · standalone ' + standalone;
+        var changed = !prev || prev.top !== next.top ||
+          prev.right !== next.right || prev.bottom !== next.bottom ||
+          prev.left !== next.left;
+        // The app registers rmcOnSafeArea to re-apply the insets.
+        if (changed && typeof window.rmcOnSafeArea === 'function') {
+          window.rmcOnSafeArea();
+        }
+      }
+      measure();
+      window.addEventListener('resize', measure);
+      window.addEventListener('load', measure);
+      window.addEventListener('pageshow', measure);
+      window.addEventListener('orientationchange', function () {
+        setTimeout(measure, 300);
+      });
+      // Insets can settle after launch (even after the app has started);
+      // re-check for the first 15 seconds.
+      var checks = 0;
+      var timer = setInterval(function () {
+        measure();
+        if (++checks >= 30) clearInterval(timer);
+      }, 500);
+    })();
+  </script>
+
+  <!-- Install prompt banner (Android: native prompt; iOS: Add-to-Home-Screen tip) -->
+  <div id="rmc-install-banner">
+    <img src="icons/Icon-192.png" alt="">
+    <div class="rmc-text">
+      <div class="rmc-title">Install Yamaha</div>
+      <div class="rmc-sub" id="rmc-install-sub">Add it to your home screen for the full-screen app experience.</div>
+    </div>
+    <button id="rmc-install-btn">Install</button>
+    <button id="rmc-install-close" aria-label="Dismiss">✕</button>
+  </div>
+
+  <script>
+    (function () {
+      var banner = document.getElementById('rmc-install-banner');
+      var installBtn = document.getElementById('rmc-install-btn');
+      var closeBtn = document.getElementById('rmc-install-close');
+      var sub = document.getElementById('rmc-install-sub');
+      var deferredPrompt = null;
+
+      var isStandalone = window.matchMedia('(display-mode: standalone)').matches
+        || window.navigator.standalone === true;
+      var dismissed = sessionStorage.getItem('rmc-install-dismissed') === '1';
+      if (isStandalone || dismissed) return;
+
+      var isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+      // Android / desktop Chrome & Edge: capture the native install prompt.
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        banner.style.display = 'flex';
+      });
+
+      // iOS Safari never fires beforeinstallprompt — show manual instructions.
+      if (isIos) {
+        sub.textContent = 'Tap the Share button, then "Add to Home Screen".';
+        installBtn.style.display = 'none';
+        setTimeout(function () { banner.style.display = 'flex'; }, 2500);
+      }
+
+      installBtn.addEventListener('click', function () {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.finally(function () {
+          deferredPrompt = null;
+          banner.style.display = 'none';
+        });
+      });
+
+      closeBtn.addEventListener('click', function () {
+        banner.style.display = 'none';
+        sessionStorage.setItem('rmc-install-dismissed', '1');
+      });
+
+      window.addEventListener('appinstalled', function () {
+        banner.style.display = 'none';
+      });
+    })();
+  </script>
+
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
